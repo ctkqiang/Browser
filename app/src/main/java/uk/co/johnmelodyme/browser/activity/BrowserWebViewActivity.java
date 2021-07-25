@@ -2,6 +2,7 @@ package uk.co.johnmelodyme.browser.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.graphics.Bitmap;
@@ -46,7 +47,6 @@ public class BrowserWebViewActivity extends AppCompatActivity
     public ProgressBar progressBar;
     public WebView webView;
 
-    public ImageButton refresh;
 
     /**
      * @param bundle required for user interface rendering at
@@ -57,8 +57,6 @@ public class BrowserWebViewActivity extends AppCompatActivity
         Functions.log_output("render_user_interface_components/1", 0, LOG_LEVEL);
 
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
-
-        refresh = (ImageButton) findViewById(R.id.refresh);
 
         webView = (WebView) findViewById(R.id.web_view);
         webView.setWebViewClient(new WebViewClient()
@@ -90,6 +88,7 @@ public class BrowserWebViewActivity extends AppCompatActivity
         Functions.open_url_in_app(this, bundle, webView);
     }
 
+    @SuppressLint("WrongConstant")
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -99,18 +98,13 @@ public class BrowserWebViewActivity extends AppCompatActivity
         /* Render User Interface Components */
         render_user_interface_components(savedInstanceState);
 
-        ActionBar mActionBar = getActionBar();
-        mActionBar.setDisplayShowHomeEnabled(false);
-        mActionBar.setDisplayShowTitleEnabled(false);
-        LayoutInflater mInflater = LayoutInflater.from(this);
+        this.getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setDisplayShowCustomEnabled(true);
+        getSupportActionBar().setCustomView(R.layout.action_bar);
+        getSupportActionBar().setElevation(0);
+        View view=getSupportActionBar().getCustomView();
 
-        View mCustomView = mInflater.inflate(R.layout.action_bar, null);
-        TextView mTitleTextView = (TextView) mCustomView.findViewById(R.id.url);
-        mTitleTextView.setText(Functions.getUrl(this, savedInstanceState));
-        mActionBar.setCustomView(mCustomView);
-        mActionBar.setDisplayShowCustomEnabled(true);
-
-        refresh.setOnClickListener(new View.OnClickListener()
+        view.findViewById(R.id.refresh).setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
@@ -120,6 +114,9 @@ public class BrowserWebViewActivity extends AppCompatActivity
                 webView.reload();
             }
         });
+
+        TextView _url = (TextView) view.findViewById(R.id.url);
+        _url.setText(Functions.getUrl(this, savedInstanceState));
     }
 
     private void set_progress_bar_visibility(int visibility)
