@@ -37,4 +37,8 @@ public class Constants
     public static String VERBOSE_LEVEL = "[VERBOSE] -> ";
 
     public static String DEV_PROFILE_URL = "https://tinyurl.com/johnmelodyme";
+    
+    public static String SEARCH_ENGINE = "https://www.qwant.com";
+
+    public static String SEARCH_ENGINE_QUERY = "https://www.qwant.com/?q=";
 }

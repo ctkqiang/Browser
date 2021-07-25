@@ -5,11 +5,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.material.snackbar.Snackbar;
 
 import uk.co.johnmelodyme.browser.constant.Constants;
 import uk.co.johnmelodyme.browser.constant.LogLevel;
@@ -48,6 +51,18 @@ public class Functions extends Constants
     }
 
     /**
+     * @param view    Get User's Current View Components
+     * @param message User Custom input value
+     *                #Required
+     */
+    public static void show_snack_bar(View view, String message)
+    {
+        log_output("show_snack_bar/2", 0, LogLevel.DEBUG);
+
+        Snackbar.make(view, message, Snackbar.LENGTH_SHORT).show();
+    }
+
+    /**
      * @param context   required Context for register
      * @param classname required for routing {@link #route_to(Context, Class)}
      */
@@ -80,6 +95,16 @@ public class Functions extends Constants
 
         webView.animate();
         webView.loadUrl(url);
+    }
+
+    public static String getUrl( AppCompatActivity activity, Bundle bundle)
+    {
+        String url;
+
+        bundle = activity.getIntent().getExtras();
+        url = bundle.getString("url");
+
+        return url;
     }
 
     public static void parse_url(@NonNull String url, Context context, @NonNull Class<?> classname)
