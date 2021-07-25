@@ -1,31 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
 
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/url"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal"
-        tools:ignore="UselessParent">
+        android:layout_gravity="center"
+        android:gravity="center" />
 
-        <TextView
-            android:id="@+id/url"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:gravity="center" />
-
-        <ImageButton
-            android:id="@+id/refresh"
-            android:layout_width="20dp"
-            android:layout_height="50dp"
-            android:layout_weight="1"
-            app:srcCompat="@drawable/ic_baseline_refresh_24"
-            tools:ignore="ContentDescription,InefficientWeight" />
-
-    </LinearLayout>
-</RelativeLayout>
+</LinearLayout>
