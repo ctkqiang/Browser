@@ -13,8 +13,10 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.CookieManager;
 import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
+import android.webkit.WebStorage;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageButton;
@@ -102,23 +104,12 @@ public class BrowserWebViewActivity extends AppCompatActivity
 
         /* Render User Interface Components */
         render_user_interface_components(savedInstanceState);
-
-        Objects.requireNonNull(this.getSupportActionBar()).setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        this.getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setDisplayShowCustomEnabled(true);
         getSupportActionBar().setCustomView(R.layout.action_bar);
         getSupportActionBar().setElevation(0);
         View view = getSupportActionBar().getCustomView();
 
-        view.findViewById(R.id.refresh).setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                Functions.log_output("menu_refresh/0", 0, LogLevel.DEBUG);
-
-                webView.reload();
-            }
-        });
 
         TextView _url = (TextView) view.findViewById(R.id.url);
         _url.setText(Functions.getUrl(this, savedInstanceState));
@@ -154,6 +145,25 @@ public class BrowserWebViewActivity extends AppCompatActivity
     {
         webView.goBack();
         super.onBackPressed();
+        this.deleteDatabase("webview.db");
+        this.deleteDatabase("webviewCache.db");
+    }
+
+
+
+    @Override
+    protected void onDestroy()
+    {
+        super.onDestroy();
+
+        this.deleteDatabase("webview.db");
+        this.deleteDatabase("webviewCache.db");
+
+        webView.clearCache(true);
+        CookieManager.getInstance().removeAllCookies(null);
+        CookieManager.getInstance().flush();
+        WebStorage.getInstance().deleteAllData();
+
     }
 
     @Override

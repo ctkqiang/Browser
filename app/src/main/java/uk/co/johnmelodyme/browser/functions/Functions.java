@@ -6,7 +6,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.webkit.CookieManager;
 import android.webkit.WebSettings;
+import android.webkit.WebStorage;
 import android.webkit.WebView;
 
 import androidx.annotation.NonNull;
@@ -97,7 +99,7 @@ public class Functions extends Constants
         webView.loadUrl(url);
     }
 
-    public static String getUrl( AppCompatActivity activity, Bundle bundle)
+    public static String getUrl(AppCompatActivity activity, Bundle bundle)
     {
         String url;
 
@@ -114,5 +116,18 @@ public class Functions extends Constants
         context.startActivity(intent);
 
         log_output("parse_url/3", 0, LogLevel.DEBUG);
+    }
+
+    public static void clear(WebView webView)
+    {
+        webView.clearCache(true);
+        webView.clearHistory();
+        webView.clearSslPreferences();
+        webView.clearFocus();
+        webView.clearDisappearingChildren();
+        webView.clearFormData();
+        CookieManager.getInstance().removeAllCookies(null);
+        CookieManager.getInstance().flush();
+        WebStorage.getInstance().deleteAllData();
     }
 }
