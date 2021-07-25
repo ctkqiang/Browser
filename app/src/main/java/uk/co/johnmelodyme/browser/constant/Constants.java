@@ -19,41 +19,22 @@ package uk.co.johnmelodyme.browser.constant;
  * along with Malaysian Sign Language.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-public enum LogLevel
+public class Constants
 {
-    DEBUG
-            {
-                public String toString()
-                {
-                    return Constants.DEBUG_LEVEL;
-                }
-            },
-    ERROR
-            {
-                public String toString()
-                {
-                    return Constants.ERROR_LEVEL;
-                }
-            },
-    WARN
-            {
-                public String toString()
-                {
-                    return Constants.WARN_LEVEL;
-                }
-            },
-    INFO
-            {
-                public String toString()
-                {
-                    return Constants.INFO_LEVEL;
-                }
-            },
-    VERBOSE
-            {
-                public String toString()
-                {
-                    return Constants.VERBOSE_LEVEL;
-                }
-            }
+    /* Application Name */
+    public static final String APP_NAME = "browser";
+
+    /**
+     * Defines several constants used between
+     * {@link uk.co.johnmelodyme.browser.activity.WebViewActivity}
+     */
+
+    /* Log Level */
+    public static String DEBUG_LEVEL = "[DEBUG] -> ";
+    public static String INFO_LEVEL = "[INFO] -> ";
+    public static String ERROR_LEVEL = "[ERROR] -> ";
+    public static String WARN_LEVEL = "[WARNING] -> ";
+    public static String VERBOSE_LEVEL = "[VERBOSE] -> ";
+
+    public static String DEV_PROFILE_URL = "https://tinyurl.com/johnmelodyme";
 }
